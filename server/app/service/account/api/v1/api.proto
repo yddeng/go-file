@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+package ksat.account.v1;
+option go_package = "v1";
+
+service Account {
+  rpc Login(loginReq) returns (replyResp){}
+  rpc Logout(logoutReq) returns (replyResp){}
+  rpc CheckToken(checkTokenReq) returns (replyResp){}
+  rpc ForkToken(forkTokenReq) returns (replyResp){}
+}
+
+message account {
+  string oaid = 1 [(gogoproto.moretags) = 'form:"oaid"', (gogoproto.jsontag) = 'oaid'];
+  string name = 2 [(gogoproto.moretags) = 'form:"name" validate:"required"', (gogoproto.jsontag) = 'name'];
+  string account = 3 [(gogoproto.moretags) = 'form:"account" validate:"required"', (gogoproto.jsontag) = 'account'];
+  int32 activate = 4 [(gogoproto.moretags) = 'form:"activate"', (gogoproto.jsontag) = 'activate'];
+  int64 expire = 5 [(gogoproto.moretags) = 'form:"expire"', (gogoproto.jsontag) = 'expire', (gogoproto.casttype) = 'go.luxshare-ict.com/pkg/time.Time'];
+  string tel = 6 [(gogoproto.moretags) = 'form:"tel"', (gogoproto.jsontag) = 'tel'];
+  string email = 7 [(gogoproto.moretags) = 'form:"email"', (gogoproto.jsontag) = 'email'];
+  string position = 8 [(gogoproto.moretags) = 'form:"position"', (gogoproto.jsontag) = 'position'];
+  string positionId = 9 [(gogoproto.moretags) = 'form:"positionId"', (gogoproto.jsontag) = 'positionId'];
+  string department = 10 [(gogoproto.moretags) = 'form:"department"', (gogoproto.jsontag) = 'department'];
+  string departmentId = 11 [(gogoproto.moretags) = 'form:"departmentId"', (gogoproto.jsontag) = 'departmentId'];
+  int32 group = 12 [(gogoproto.moretags) = 'form:"group"', (gogoproto.jsontag) = 'group'];
+  int32 disable = 13 [(gogoproto.moretags) = 'form:"disable"', (gogoproto.jsontag) = 'disable'];
+  string role = 14 [(gogoproto.moretags) = 'form:"role"', (gogoproto.jsontag) = 'role'];
+  int64 Hiredate = 15 [(gogoproto.moretags) = 'form:"hiredate"', (gogoproto.jsontag) = 'hiredate', (gogoproto.casttype) = 'go.luxshare-ict.com/pkg/time.Time'];
+  string Education = 16 [(gogoproto.moretags) = 'form:"education"', (gogoproto.jsontag) = 'education'];
+  string Gender = 17 [(gogoproto.moretags) = 'form:"gender"', (gogoproto.jsontag) = 'gender'];
+  string Party = 18 [(gogoproto.moretags) = 'form:"party"', (gogoproto.jsontag) = 'party'];
+  string IdCard = 19 [(gogoproto.moretags) = 'form:"idCard"', (gogoproto.jsontag) = 'idCard'];
+  string Hometown = 20 [(gogoproto.moretags) = 'form:"hometown"', (gogoproto.jsontag) = 'hometown'];
+  string bu = 21 [(gogoproto.moretags) = 'form:"bu"', (gogoproto.jsontag) = 'bu'];
+  string token = 100 [(gogoproto.moretags) = 'form:"token"', (gogoproto.jsontag) = 'token'];
+  string appid = 101 [(gogoproto.moretags) = 'form:"appid"', (gogoproto.jsontag) = 'appid'];
+}
+
+message loginReq {
+  string account = 1 [(gogoproto.moretags) = 'form:"account" validate:"required"', (gogoproto.jsontag) = 'account'];
+  string password = 2 [(gogoproto.moretags) = 'form:"password" validate:"required"', (gogoproto.jsontag) = 'password'];
+  string appid = 3 [(gogoproto.moretags) = 'form:"appid"', (gogoproto.jsontag) = 'appid'];
+  string remember = 4 [(gogoproto.moretags) = 'form:"remember"', (gogoproto.jsontag) = 'remember'];
+}
+
+message logoutReq {
+  string token = 1 [(gogoproto.moretags) = 'form:"token" validate:"required"', (gogoproto.jsontag) = 'token'];
+}
+message checkTokenReq {
+  string token = 1 [(gogoproto.moretags) = 'form:"token" validate:"required"', (gogoproto.jsontag) = 'token'];
+}
+message forkTokenReq {
+  string token = 1 [(gogoproto.moretags) = 'form:"token" validate:"required"', (gogoproto.jsontag) = 'token'];
+  string appid = 3 [(gogoproto.moretags) = 'form:"appid"', (gogoproto.jsontag) = 'appid'];
+}
+
+message replyResp{
+  int64 code = 1 [(gogoproto.moretags) = 'form:"code"', (gogoproto.jsontag) = 'code'];
+  string message = 2 [(gogoproto.moretags) = 'form:"message"', (gogoproto.jsontag) = 'message'];
+  account data = 3 [(gogoproto.moretags) = 'form:"data"', (gogoproto.jsontag) = 'data'];
+}

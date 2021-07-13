@@ -1,0 +1,70 @@
+app:
+  pb: v1
+  region: ksat
+  name: account
+  assetPath: ""
+
+log:
+  level: debug
+  path: logs
+  maxDay: 7
+  maxSize: 500
+
+jaeger:
+  server: etcdserver:6831
+
+registries:
+  etcd:
+    cluster:
+      - http://etcdserver:23791
+      - http://etcdserver:23792
+      - http://etcdserver:23793
+    cert:
+      crt: ""
+      key: ""
+      pem: ""
+    token: ""
+    user: ""
+    password: ""
+    dialTimeout: 5s
+    ttl: 5
+
+protocols:
+  gin:
+    bind: "172.17.211.27"
+    port: 21280
+    weight: 5
+    readTimeout: 60s
+    writeTimeout: 180s
+    registry: etcd
+
+  grpc:
+    bind: "172.17.211.27"
+    port: 21281
+    weight: 5
+    readTimeout: 60s
+    writeTimeout: 180s
+    registry: etcd
+    map:
+      message: "from 21281"
+
+db:
+  mongodb:
+    source: "mongodb://mongoserver:27017,mongoserver:27018,mongoserver:27019/?replicaSet=rs0"
+    addr: ""
+    user: ""
+    password: ""
+    database: "ksat_pms"
+    maxIdleConns: 30
+    maxOpenConns: 900
+    queryTimeout: 30s
+
+  redis:
+    source: ""
+    addr: "mongoserver:6379"
+    user: ""
+    password: "Q!w2e3r4"
+    db: "1"
+    minIdleConns: 30
+    maxOpenConns: 900
+    queryTimeout: 30s
